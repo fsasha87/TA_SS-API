@@ -1,1 +1,0 @@
-{"uuid":"b46e8963-9408-4829-81d3-1d8482613b32","name":"REST-test-framework-template","children":["0bb33309-de8c-4b1f-ab6a-65236a2a042e"],"befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1629211980320,"stop":1629211982866}],"afters":[],"links":[],"start":1629211980259,"stop":1629211989893}
