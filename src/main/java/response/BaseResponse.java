@@ -1,14 +1,13 @@
 package response;
 
 import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 
-public class BaseResponse<T> {
-    protected Response response;
-    private Class<T> responseClass;
+public class BaseResponse {
+    private final Response response;
 
-    public BaseResponse(Response response, Class<T> responseClass) {
+    public BaseResponse(Response response) {
         this.response = response;
-        this.responseClass = responseClass;
     }
 
     public int getStatusCode() {
@@ -19,7 +18,11 @@ public class BaseResponse<T> {
         return this.response.getHeader(header);
     }
 
-    public T getBody() {
-        return this.response.body().as(this.responseClass);
+    public ResponseBody getBody() {
+        return this.response.body();
+    }
+
+    public String getBodyAsString() {
+        return this.response.body().asString();
     }
 }

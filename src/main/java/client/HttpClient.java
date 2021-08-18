@@ -1,39 +1,44 @@
 package client;
 
 import config.ServiceConfig;
+import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import response.BaseResponse;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.given;
 
 public class HttpClient {
 
-    public static Response get(String endpoint) {
+    public static BaseResponse get(String endpoint) {
         return HttpClient.sendRequest(Method.GET, endpoint);
     }
 
-    public static Response post(String endpoint, String body) {
+    public static BaseResponse post(String endpoint, String body) {
         return HttpClient.sendRequest(Method.POST, endpoint, body);
     }
 
-    public static Response put(String endpoint, String body) {
+    public static BaseResponse put(String endpoint, String body) {
         return HttpClient.sendRequest(Method.PUT, endpoint, body);
     }
 
-    public static Response delete(String endpoint) {
+    public static BaseResponse delete(String endpoint) {
         return HttpClient.sendRequest(Method.DELETE, endpoint);
     }
 
-    private static Response sendRequest(Method method, String endpoint) {
+    private static BaseResponse sendRequest(Method method, String endpoint) {
         return HttpClient.sendRequest(method, endpoint, null);
     }
 
-    private static Response sendRequest(Method method, String endpoint, String body) {
+    private static BaseResponse sendRequest(Method method, String endpoint, String body) {
         String url = ServiceConfig.HOST + endpoint;
         RequestSpecification spec = given();
-        if (body != null) spec.body(body);
-        Response response = spec.request(method, url);
-        return response;
+        if (body != null) {
+            spec.contentType(ContentType.JSON);
+            spec.body(body);
+        }
+        Response rawResponse = spec.request(method, url);
+        return new BaseResponse(rawResponse);
     }
 }

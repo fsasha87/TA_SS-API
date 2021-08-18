@@ -17,22 +17,21 @@ public class Tests extends BaseTest {
         genreWebService.verifyListGenresContainsGenre("Legend");
     }
 
-    @Test(description = "check author's endpoints")
-    public void checkAuthorEndpoints() {
-        authorWebService.verifyFirstNameOfFirstAuthor("August");
-        authorWebService.createAuthor(100, "Sasha", "Feren", "ukr", "1945-07-22", "Ukraine", "Kiev", "Best author");
-        authorWebService.changeAuthor(100, "Aleks", "Fer", "ukrainian", "1945-07-22", "USA", "LA", "Could be better");
-        authorWebService.verifyAuthorNameByAuthorID(100, "Fer");
-        authorWebService.deleteAuthor(100);
-        authorWebService.deleteMissingAuthor(1);
-        authorWebService.verifyListAuthorsContainsNationality("Romanian");
-    }
-
     @Test
     public void getAll() {
-        authorWebService.getAllAuthors();
+        authorService.getAllAuthors();
         genreWebService.getAllGenres();
     }
 
 }
+
+
+//    @Test(description = "save all surnames of Authors")
+//    public void getAllSurnamesOfAuthors (){
+//        List<String> surnames =
+//                given().log().uri().
+//                        when().get("authors").
+//                        then().log().body().statusCode(200).extract().jsonPath().getList("authorName.second");
+//        surnames.forEach(System.out::println);
+//    }
 
